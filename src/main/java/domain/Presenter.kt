@@ -22,8 +22,12 @@ class Presenter(
                 ) < MAX_DISTANCE
             }
             .sortedBy { it.userId }
-
-        fileStore.writeToFile(result.toString())
+            .map { "UserID : ${it.userId} Name : ${it.name}\n" }
+            .fold("") { prev, curr ->
+                prev + curr
+            }
+            .trim()
+        fileStore.writeToFile(result)
     }
 }
 
